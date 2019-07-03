@@ -24,7 +24,7 @@ var funcs = template.FuncMap{
 var outLine = template.Must(
 	template.New("dbench").
 		Funcs(funcs).
-		Parse("{{.Name}}\t{{.NumSamples}}\t{{ns .Average}} ns/op"))
+		Parse("Benchmark{{.Name}}\t{{.NumSamples}}\t{{ns .Average}} ns/op"))
 
 const (
 	// NameGroup is the group matching the test name.
@@ -115,6 +115,10 @@ func Process(r io.Reader, w io.Writer) error {
 	for s.Scan() {
 		t := s.Text()
 		res, err := GetResult(t)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "could not parse: %q: %v\n", t, err)
+			continue
+		}
 		if err = outLine.Execute(w, res); err != nil {
 			return fmt.Errorf("could not output a line for: %q: %v", t, err)
 		}

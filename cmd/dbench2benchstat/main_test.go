@@ -49,7 +49,16 @@ func TestProcess(t *testing.T) {
 			in: []string{
 				"basic/increment -> avg 0.00927782162588819ms out of 2534 samples. (std dev 0.00161196365508829, min 0.008, max 0.082)",
 			},
-			out: "basic/increment\t2534\t9277 ns/op\n",
+			out: "Benchmarkbasic/increment\t2534\t9277 ns/op\n",
+		},
+		{
+			name: "skip misformatted lines",
+			in: []string{
+				"mis-formatted line",
+				"basic/increment -> avg 0.00927782162588819ms out of 2534 samples. (std dev 0.00161196365508829, min 0.008, max 0.082)",
+				"another mis-formatted line",
+			},
+			out: "Benchmarkbasic/increment\t2534\t9277 ns/op\n",
 		},
 		{
 			name: "complete",
@@ -71,22 +80,22 @@ func TestProcess(t *testing.T) {
 				"basic/alloc -> avg 0.0794449269640761ms out of 2533 samples. (std dev 0.00567592930146688, min 0.077, max 0.239)",
 				"basic/url -> avg 0.0912913541255455ms out of 2533 samples. (std dev 0.00704704681367013, min 0.089, max 0.382)",
 			},
-			out: "basic/increment\t2534\t9277 ns/op\n" +
-				"basic/setInt\t2534\t8417 ns/op\n" +
-				"basic/delNode\t2533\t13989 ns/op\n" +
-				"basic/addNode\t2534\t23709 ns/op\n" +
-				"basic/setByte\t2533\t24954 ns/op\n" +
-				"basic/resetByte\t2533\t29195 ns/op\n" +
-				"basic/setByteLong\t2533\t275580 ns/op\n" +
-				"basic/resetByteLong\t2533\t370064 ns/op\n" +
-				"basic/setString\t2533\t19510 ns/op\n" +
-				"basic/resetString\t2533\t21444 ns/op\n" +
-				"basic/setStringLong\t2533\t295724 ns/op\n" +
-				"basic/resetStringLong\t2533\t390995 ns/op\n" +
-				"basic/incDouble\t2534\t9238 ns/op\n" +
-				"basic/setDouble\t2534\t8623 ns/op\n" +
-				"basic/alloc\t2533\t79444 ns/op\n" +
-				"basic/url\t2533\t91291 ns/op\n" +
+			out: "Benchmarkbasic/increment\t2534\t9277 ns/op\n" +
+				"Benchmarkbasic/setInt\t2534\t8417 ns/op\n" +
+				"Benchmarkbasic/delNode\t2533\t13989 ns/op\n" +
+				"Benchmarkbasic/addNode\t2534\t23709 ns/op\n" +
+				"Benchmarkbasic/setByte\t2533\t24954 ns/op\n" +
+				"Benchmarkbasic/resetByte\t2533\t29195 ns/op\n" +
+				"Benchmarkbasic/setByteLong\t2533\t275580 ns/op\n" +
+				"Benchmarkbasic/resetByteLong\t2533\t370064 ns/op\n" +
+				"Benchmarkbasic/setString\t2533\t19510 ns/op\n" +
+				"Benchmarkbasic/resetString\t2533\t21444 ns/op\n" +
+				"Benchmarkbasic/setStringLong\t2533\t295724 ns/op\n" +
+				"Benchmarkbasic/resetStringLong\t2533\t390995 ns/op\n" +
+				"Benchmarkbasic/incDouble\t2534\t9238 ns/op\n" +
+				"Benchmarkbasic/setDouble\t2534\t8623 ns/op\n" +
+				"Benchmarkbasic/alloc\t2533\t79444 ns/op\n" +
+				"Benchmarkbasic/url\t2533\t91291 ns/op\n" +
 				"",
 		},
 	}
